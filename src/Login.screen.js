@@ -29,7 +29,10 @@ function LoginScreen({ setUser, setLogged }) {
       <div className="join-header">welcome to lora client</div>
       <form
         className="join-main"
-        onSubmit={() => handleUser({ name: username, id: userID })}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUser({ name: username, id: userID });
+        }}
       >
         <input
           placeholder="name"
