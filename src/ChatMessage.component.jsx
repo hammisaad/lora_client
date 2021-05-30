@@ -7,12 +7,17 @@ export default function ChatMessage({
 }) {
   return (
     <div
-      className={`message ${
-        type === "self" ? "message-ours" : "chat-message-div"
-      }`}
+      className={`message ${type === "status" && "message-status"} 
+       ${type === "self" && "message-ours"}`}
       {...props}
     >
-      <p className={`text ${type === "self" ? "ours" : "theirs"}`}>{msg}</p>
+      <p
+        className={`text ${type === "self" ? "ours" : "theirs"} ${
+          type === "status" ? "status" : ""
+        }`}
+      >
+        {msg}
+      </p>
       {type === "remote" && (
         <Link to={`/private/${senderName}`} className="meta">
           {senderName}

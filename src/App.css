@@ -92,7 +92,14 @@ a {
 .message-ours {
   margin-left: auto;
 }
-
+.chat-messages .message-status {
+  width: 100% !important;
+  margin: 15px auto;
+  text-align: center;
+}
+.status {
+  color: red;
+}
 .chat-messages .message .meta {
   font-size: 15px;
   font-weight: bold;

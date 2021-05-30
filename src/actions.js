@@ -21,13 +21,12 @@ export function sendMessage(socket, user, messages, setMessages, msg, cb) {
 
   let type = "self";
   if (!user.name.length) {
-    msg = user.name + " joined the channel";
+    msg = msg + " joined the channel";
     type = "status";
-    sendFinal(socket, "~", msg, cb);
+    sendFinal(socket, "+", msg, cb);
     showMessage(messages, setMessages, msg, type);
   } else {
     msg = user.name + " " + user.id + "*" + msg;
-
     sendFinal(socket, "c", msg, cb);
     showMessage(messages, setMessages, msg, type);
   }

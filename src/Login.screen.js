@@ -1,25 +1,43 @@
 import React from "react";
 
 import { useHistory } from "react-router-dom";
+import { sendMessage } from "./actions";
 
-function LoginScreen({ setUser, setLogged }) {
+function LoginScreen({
+  setUser,
+  setLogged,
+  socket,
+  user,
+  messages,
+  setMessagesRef,
+}) {
   const history = useHistory();
   const [username, setUsername] = React.useState("");
   const [userID, setUserID] = React.useState("");
 
   // handling login
-  const handleUser = (username) => {
-    if (/\s/.test(username.name)) {
+  const handleUser = (data) => {
+    if (/\s/.test(data.name)) {
       // It has any kind of whitespace
       alert("your username should not contain spaces");
       return;
     }
-    if (username.name.length >= 5) {
+    if (data.name.length >= 5) {
       // too long
       alert("your username should be 5 characters max");
       return;
     }
-    setUser(username);
+    sendMessage(
+      socket.current,
+      user,
+      messages,
+      setMessagesRef,
+      "0~general|" + data.name,
+      (err) => {
+        console.log(err);
+      }
+    );
+    setUser(data);
     setLogged(true);
     history.push("general");
   };

@@ -20,7 +20,7 @@ import "./App.css";
 function App() {
   // user and authentication  state
   const [logged, setLogged] = useLocalStorageState("logged", false);
-  const [user, setUser] = useLocalStorageState("user", { saad: "", id: "" });
+  const [user, setUser] = useLocalStorageState("user", { name: "", id: "" });
 
   // global messages state
   const [messages, setMessages] = useLocalStorageState("messages", []);
@@ -46,6 +46,8 @@ function App() {
     });
     // listen to chat messages
     addListener("c", receiveChat);
+    // listen to status messages
+    addListener("+", receiveStatus);
 
     return () => socket.current.close();
   }, []);
@@ -60,6 +62,11 @@ function App() {
   // handle received chat message
   const receiveChat = React.useCallback((namespace, data) => {
     showMessage(messagesRef.current, setMessagesRef, data.toString());
+  }, []);
+
+  // handle received status message
+  const receiveStatus = React.useCallback((namespace, data) => {
+    showMessage(messagesRef.current, setMessagesRef, data.toString(), "status");
   }, []);
 
   return (
@@ -95,7 +102,15 @@ function App() {
           ) : (
             <>
               <Route exact path="/login">
-                <LoginScreen setUser={setUser} setLogged={setLogged} />
+                <LoginScreen
+                  setUser={setUser}
+                  setLogged={setLogged}
+                  socket={socket}
+                  user={user}
+                  messages={messages}
+                  messagesRef={messagesRef}
+                  setMessagesRef={setMessagesRef}
+                />
               </Route>
               <Route>
                 <Redirect to="/login" />
