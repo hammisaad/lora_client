@@ -11,9 +11,9 @@ import { showMessage } from "./actions";
 import { addListener, gotMessage } from "./socket";
 
 // screens
-import LoginScreen from "./Login.screen";
-import GeneralRoomScreen from "./GeneralRoom.screen";
-import PrivateRoomScreen from "./PrivateRoom.screen";
+import LoginScreen from "./screens/Login.screen";
+import GeneralRoomScreen from "./screens/GeneralRoom.screen";
+import PrivateRoomScreen from "./screens/PrivateRoom.screen";
 
 import "./App.css";
 
@@ -34,7 +34,7 @@ function App() {
 
   React.useEffect(() => {
     // initialize the socket instance
-    socket.current = new WebSocket("ws://localhost:8999");
+    socket.current = new WebSocket("ws://localhost:8000");
     socket.current.binaryType = "arraybuffer";
     // Connection opened
     socket.current.addEventListener("open", function (event) {

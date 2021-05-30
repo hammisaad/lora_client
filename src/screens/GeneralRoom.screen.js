@@ -1,8 +1,8 @@
 import React from "react";
 
-import { sendMessage } from "./actions";
+import { sendMessage } from "../actions";
 
-import ChatMessage from "./ChatMessage.component";
+import ChatMessage from "../components/ChatMessage.component";
 
 function GeneralRoomScreen({
   socket,
@@ -69,7 +69,7 @@ function GeneralRoomScreen({
           {messages
             .filter((msg) => msg.receiverName === "0" || msg.type === "status")
             .map((msg, i) => (
-              <ChatMessage key={msg.msg + i} msg={msg} />
+              <ChatMessage key={msg.msg + i} msg={msg} myName={user.name} />
             ))}
         </div>
         <div className="chat-form-container">

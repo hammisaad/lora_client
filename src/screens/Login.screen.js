@@ -1,7 +1,7 @@
 import React from "react";
-
 import { useHistory } from "react-router-dom";
-import { sendMessage } from "./actions";
+
+import { sendMessage } from "../actions";
 
 function LoginScreen({
   setUser,
@@ -22,7 +22,7 @@ function LoginScreen({
       alert("your username should not contain spaces");
       return;
     }
-    if (data.name.length >= 5) {
+    if (data.name.length > 5) {
       // too long
       alert("your username should be 5 characters max");
       return;
@@ -32,7 +32,7 @@ function LoginScreen({
       user,
       messages,
       setMessagesRef,
-      "0~general|" + data.name,
+      data.name + " " + data.id + "*0~general|",
       (err) => {
         console.log(err);
       }

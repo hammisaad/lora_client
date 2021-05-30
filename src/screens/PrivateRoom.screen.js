@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { sendMessage } from "./actions";
+import { sendMessage } from "../actions";
 
-import ChatMessage from "./ChatMessage.component";
+import ChatMessage from "../components/ChatMessage.component";
 
 function PrivateRoomScreen({
   socket,
@@ -75,7 +75,7 @@ function PrivateRoomScreen({
                 (msg.senderName === user.name && msg.receiverName === id)
             )
             .map((msg, i) => (
-              <ChatMessage key={msg.msg + i} msg={msg} />
+              <ChatMessage key={msg.msg + i} msg={msg} myName={user.name} />
             ))}
         </div>
         <div className="chat-form-container">
