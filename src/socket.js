@@ -90,7 +90,7 @@ export function sendFinal(socket, namespace, msg, cb) {
     timeout: setTimeout(function () {
       if (!sentCallbacks[msgID]) return;
 
-      cb(new Error("Timed out while waiting for ack"));
+      console.log("Timed out while waiting for ack");
     }, 5000),
   };
 }

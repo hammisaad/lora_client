@@ -23,7 +23,7 @@ function App() {
   const [user, setUser] = useLocalStorageState("user", { name: "", id: "" });
 
   // global messages state
-  const [messages, setMessages] = useLocalStorageState("messages", []);
+  const [messages, setMessages] = React.useState("messages", []);
   const messagesRef = React.useRef(messages);
   const setMessagesRef = (data) => {
     messagesRef.current = data;
@@ -32,14 +32,19 @@ function App() {
 
   const socket = React.useRef(null);
 
+  let wsProtocol = "ws://";
+  if (window.location.protocol.match(/^https/i)) {
+    wsProtocol = "wss://";
+  }
+
+  let url = wsProtocol + "192.168.4.1/ws";
+
   React.useEffect(() => {
     // initialize the socket instance
-    socket.current = new WebSocket("ws://localhost:8000");
+    socket.current = new WebSocket(url);
     socket.current.binaryType = "arraybuffer";
     // Connection opened
-    socket.current.addEventListener("open", function (event) {
-      socket.current.send("Hello Server!");
-    });
+    socket.current.addEventListener("open", function (event) {});
     //  Listen for messages
     socket.current.addEventListener("message", function (event) {
       gotMessage(event);
